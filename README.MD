@@ -33,8 +33,8 @@ Antes de começar, você precisa ter instalado em sua máquina:
 1. **Clone o repositório**
 
 ```bash
-git clone https://github.com/seu-usuario/nome-do-repo.git
-cd nome-do-repo
+git clone git@github.com:willianKsouza/task-manager-api-node.git
+cd task-manager-api-node
 npm install
 
 O projeto utiliza Docker Compose para criar e gerenciar o container do banco PostgreSQL.
