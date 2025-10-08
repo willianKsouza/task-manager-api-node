@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import type { CreateUserUseCase, GetAllUserUseCase, GetUserByIdUseCase } from "../../useCases/userUseCases.ts"
+import type { CreateUserUseCase, DeleteUserUseCase, GetAllUserUseCase, GetUserByIdUseCase, UpdateUserUseCase } from "../../useCases/userUseCases.ts"
 
 export class CreateUserController {
     constructor(private createUserUseCase: CreateUserUseCase) { }
@@ -51,4 +51,41 @@ export class GetUserByIdController {
         })
     }
 
+}
+
+export class UpdateUserController {
+    constructor(private updateUserUseCase: UpdateUserUseCase) { }
+    async handle(req: Request, res: Response) {
+        const { id } = req.params
+        const { name, email } = req.body
+        if (!id) {
+            return res.status(400).json({ message: "informe um id" });
+        }
+        const user = await this.updateUserUseCase.execute({
+            id,
+            name,
+            email,
+        })
+
+        return res.status(200).json({
+            data: user
+        })
+    }
+}
+
+
+export class DeleteUserController {
+    constructor(private deleteUserUseCase: DeleteUserUseCase) { }
+    async handle(req: Request, res: Response) {
+        const { id } = req.params
+
+        if (!id) {
+            return res.status(400).json({ message: "informe um id" });
+        }
+
+        const user = await this.deleteUserUseCase.execute(id)
+
+        return res.status(200).json()
+
+    }
 }
